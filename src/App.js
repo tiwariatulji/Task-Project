@@ -1,7 +1,11 @@
+
+
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Header from "./components/Header";
+import Sidebar from "./components/SideBar";
 import Home from "./Home"
 import Login from "./Login"
 import Profile from "./Profile"
@@ -13,31 +17,16 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <nav className="navbar navbar-expand navbar-dark bg-dark">
-            <div className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link to={"/home"} className="nav-link">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login 
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  Profile
-                </Link>
-              </li>
+          <Header />
+          <div className="main-block">
+            <Sidebar />
+            <div className="content-box">
+              <Switch>
+                <Route exact path= "/home" component={Home} />
+                <Route exact path="/" component={Login} />
+                <Route exact path ="/profile" component={Profile}/>
+              </Switch>
             </div>
-          </nav>
-          <div className="container mt-3">
-            <Switch>
-              <Route exact path= "/home" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path ="/Profile" component={Profile}/>
-            </Switch>
           </div>
         </div>
         <button>Logout</button>

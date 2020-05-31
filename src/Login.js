@@ -7,18 +7,21 @@ const initialState = {
   passwordError: ""
 };
 
-export default class NewForm extends React.Component {
+export default class Login extends React.Component {
   state = initialState;
+
+  componentDidMount() {
+    const isLoggedin = localStorage.getItem('email');
+    if(isLoggedin) window.location.href = '/home';
+  }
 
   handleChange = event => {
   this.setState({[event.target.name]:event.target.value})
   };
 
   validate = () => {
-
     let emailError = "";
     let passwordError = "";
-
     if (!this.state.email.includes("@")) {
       emailError = "invalid email";
     }
@@ -38,14 +41,13 @@ export default class NewForm extends React.Component {
     const isValid = this.validate();
     if (isValid) {
       const { email,} = this.state;
-     localStorage.setItem("email","tiwarimca@rediffmail.com");
+     localStorage.setItem("email", email);
       console.log(this.state);
       // clear form
       this.setState(initialState);
-      alert("Login Suscessfully")
-      
+      alert("Login Suscessfully");
+      window.location.href = '/home';
     }
-    
   };
 
   render() {
